@@ -17,6 +17,13 @@ walkdir = "2"
 pulldown-cmark = { version = "0.10", default-features = false }
 anyhow = "1"
 
+[dev-dependencies]
+tempfile = "3"
+
+[lib]
+name = "doc_router_lib"
+path = "src/lib.rs"
+
 [profile.release]
 lto = true
 codegen-units = 1

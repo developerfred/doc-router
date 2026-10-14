@@ -1,7 +1,7 @@
 use crate::model::{ParsedDoc, Section};
 use crate::scanner::DocFile;
 use anyhow::Result;
-use pulldown_cmark::{Event, HeadingLevel, Options, Parser, Tag};
+use pulldown_cmark::{Event, HeadingLevel, Options, Parser, Tag, TagEnd};
 
 fn estimate_tokens(text: &str) -> usize {
     (text.len() / 4).max(1)
@@ -43,10 +43,12 @@ fn parse_sections(path: &str, content: &str) -> Result<Vec<Section>> {
 
     let parser = Parser::new_ext(content, Options::all()).into_offset_iter();
     let mut raw: Vec<Raw> = Vec::new();
+    let mut in_heading = false;
 
     for (event, range) in parser {
         match event {
             Event::Start(Tag::Heading { level, .. }) => {
+                in_heading = true;
                 raw.push(Raw {
                     title: String::new(),
                     level: lvl(level),
@@ -54,9 +56,17 @@ fn parse_sections(path: &str, content: &str) -> Result<Vec<Section>> {
                     byte_start: range.start,
                 });
             }
-            Event::Text(t) | Event::Code(t) => {
+            Event::End(TagEnd::Heading(_)) => {
+                in_heading = false;
                 if let Some(r) = raw.last_mut() {
-                    r.title.push_str(&t);
+                    r.title = r.title.trim().to_string();
+                }
+            }
+            Event::Text(t) | Event::Code(t) => {
+                if in_heading {
+                    if let Some(r) = raw.last_mut() {
+                        r.title.push_str(&t);
+                    }
                 }
             }
             _ => {}

@@ -1,10 +1,4 @@
-mod bench;
-mod expand;
-mod mcp;
-mod model;
-mod parser;
-mod router;
-mod scanner;
+use doc_router_lib::{bench, expand, mcp, parser, router, scanner};
 
 use anyhow::Result;
 use clap::{Parser, Subcommand};

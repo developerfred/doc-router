@@ -47,6 +47,10 @@ pub fn scan_docs(root: &Path) -> Result<Vec<DocFile>> {
 }
 
 fn is_ignored(entry: &walkdir::DirEntry) -> bool {
+    if entry.depth() == 0 {
+        return false;
+    }
+
     let name = entry.file_name().to_string_lossy();
     if name.starts_with('.') && name != ".github" {
         return true;
