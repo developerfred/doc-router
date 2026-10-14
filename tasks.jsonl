@@ -1,0 +1,20 @@
+{"id":"T01","description":"add rate limiting to the payments endpoint"}
+{"id":"T02","description":"fix authentication token refresh bug"}
+{"id":"T03","description":"introduce a new database migration"}
+{"id":"T04","description":"add structured logging to the api gateway"}
+{"id":"T05","description":"refactor the user service into modules"}
+{"id":"T06","description":"add a new CLI command for export"}
+{"id":"T07","description":"update dependencies to latest minor versions"}
+{"id":"T08","description":"improve error messages in the parser"}
+{"id":"T09","description":"add integration tests for the checkout flow"}
+{"id":"T10","description":"optimize database query performance"}
+{"id":"T11","description":"add webhook retry logic"}
+{"id":"T12","description":"implement feature flag for new dashboard"}
+{"id":"T13","description":"fix race condition in worker pool"}
+{"id":"T14","description":"add OpenTelemetry tracing"}
+{"id":"T15","description":"migrate from REST to GraphQL"}
+{"id":"T16","description":"add input validation to public endpoints"}
+{"id":"T17","description":"write deployment runbook"}
+{"id":"T18","description":"profile memory usage in long-running job"}
+{"id":"T19","description":"add caching layer to search"}
+{"id":"T20","description":"document breaking changes in v2"}
