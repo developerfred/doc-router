@@ -20,7 +20,7 @@ It is not a documentation format. It is a decision to not read documentation.
 
 ## Install
 
-    cargo install --git https://github.com/YOUR_USER/doc-router
+    cargo install --git https://github.com/developerfred/doc-router
 
 ## Quick start
 
