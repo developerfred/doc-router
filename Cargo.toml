@@ -1,0 +1,23 @@
+[package]
+name = "doc-router"
+version = "0.1.0"
+edition = "2021"
+description = "Semantic router for agent documentation"
+license = "MIT OR Apache-2.0"
+
+[[bin]]
+name = "doc-router"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+walkdir = "2"
+pulldown-cmark = { version = "0.10", default-features = false }
+anyhow = "1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

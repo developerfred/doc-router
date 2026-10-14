@@ -1,0 +1,5 @@
+/target
+/corpus
+/bench.json
+.DS_Store
+*.swp

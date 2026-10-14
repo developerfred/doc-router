@@ -1,0 +1,30 @@
+name: Benchmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      tasks:
+        description: 'Path to tasks.jsonl'
+        default: 'tasks.jsonl'
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --release
+      - name: Fetch corpus
+        run: |
+          mkdir -p corpus
+          cd corpus
+          for repo in vercel/next.js fastapi/fastapi encode/httpx; do
+            git clone --depth 1 --filter=blob:none --sparse "https://github.com/$repo" "$(basename $repo)"
+          done
+      - name: Run benchmark
+        run: |
+          ./target/release/doc-router bench \
+            --corpus ./corpus \
+            --tasks  ./${{ github.event.inputs.tasks }} \
+            --format table
